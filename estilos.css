@@ -1,0 +1,598 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #667eea 100%);
+    background-size: 400% 400%;
+    animation: gradienteRomantico 15s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+    position: relative;
+}
+
+@keyframes gradienteRomantico {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ============== FONDO DE CORAZONES ============== */
+.fondo-corazones {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.corazon-flotante {
+    position: absolute;
+    bottom: -50px;
+    font-size: 30px;
+    opacity: 0.7;
+    animation: flotar linear forwards;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+@keyframes flotar {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ============== FONDO DE LLUVIA ============== */
+.fondo-lluvia {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.3);
+    transition: opacity 0.5s;
+}
+
+.fondo-lluvia.oculto {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.gota {
+    position: absolute;
+    top: -50px;
+    width: 2px;
+    height: 50px;
+    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.6));
+    animation: caerLluvia linear forwards;
+}
+
+@keyframes caerLluvia {
+    to {
+        transform: translateY(110vh);
+    }
+}
+
+/* ============== TRUENO ============== */
+.trueno {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
+.trueno.oculto {
+    display: none;
+}
+
+.trueno.flash {
+    opacity: 0.8;
+}
+
+/* ============== CONTENEDOR PRINCIPAL ============== */
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 40px 30px;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                0 0 100px rgba(255, 182, 193, 0.4);
+    text-align: center;
+    width: 100%;
+    max-width: 700px;
+    position: relative;
+    z-index: 2;
+    animation: entradaPanel 0.8s ease-out;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.5s ease;
+}
+
+@keyframes entradaPanel {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.container.salir {
+    animation: salidaPanel 0.5s ease-in forwards;
+}
+
+@keyframes salidaPanel {
+    to {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+/* ============== TÍTULO ============== */
+.titulo-entrada {
+    margin-bottom: 30px;
+}
+
+.titulo-animado {
+    font-size: 2.2rem;
+    background: linear-gradient(90deg, #ff6b9d, #c06c84, #6c5b7b, #355c7d);
+    background-size: 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: brilloTexto 3s ease infinite;
+    font-weight: bold;
+    text-shadow: 0 0 30px rgba(255, 107, 157, 0.5);
+}
+
+@keyframes brilloTexto {
+    0%, 100% { background-position: 0%; }
+    50% { background-position: 100%; }
+}
+
+/* ============== POEMA ============== */
+.poema {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    color: #4a4a4a;
+}
+
+.verso {
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: aparecerVerso 0.6s ease-out forwards;
+    font-style: italic;
+}
+
+.verso:nth-child(1) { animation-delay: 0.1s; }
+.verso:nth-child(2) { animation-delay: 0.2s; }
+.verso:nth-child(3) { animation-delay: 0.3s; }
+.verso:nth-child(4) { animation-delay: 0.4s; }
+.verso:nth-child(5) { animation-delay: 0.5s; }
+.verso:nth-child(6) { animation-delay: 0.6s; }
+.verso:nth-child(7) { animation-delay: 0.7s; }
+
+@keyframes aparecerVerso {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============== PREGUNTA Y EMOJI ============== */
+.pregunta-container {
+    margin: 30px 0;
+}
+
+.pregunta {
+    font-size: 1.8rem;
+    margin: 20px 0;
+    color: #d63384;
+    font-weight: bold;
+    animation: pulsarPregunta 2s ease-in-out infinite;
+}
+
+@keyframes pulsarPregunta {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.emoji {
+    font-size: 100px;
+    margin: 20px 0;
+    display: inline-block;
+    transition: all 0.3s ease;
+    animation: rebote 2s ease-in-out infinite;
+}
+
+@keyframes rebote {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Animación llorar */
+.llorar {
+    animation: temblar 0.15s infinite, caerLagrimas 0.5s ease-out;
+}
+
+@keyframes temblar {
+    0% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    100% { transform: translateX(-3px); }
+}
+
+@keyframes caerLagrimas {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(0.8); }
+    100% { filter: brightness(1); }
+}
+
+/* ============== BOTONES ============== */
+.botones {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+button {
+    padding: 18px 50px;
+    font-size: 1.4rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+#si {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+#si:hover {
+    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+    transform: translateY(-2px);
+}
+
+#si .brillo {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: brillo 3s infinite;
+}
+
+@keyframes brillo {
+    0% { left: -100%; }
+    50%, 100% { left: 100%; }
+}
+
+#no {
+    background: white;
+    color: #333;
+    border: 3px solid #ccc;
+    transition: all 0.3s ease;
+}
+
+#no:hover {
+    background: #f0f0f0;
+    border-color: #999;
+}
+
+/* ============== PANEL FINAL ============== */
+.panel-final {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    padding: 50px 40px;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.6);
+}
+
+.panel-final.aparecer {
+    animation: aparecerPanel 0.8s ease-out;
+}
+
+@keyframes aparecerPanel {
+    from {
+        opacity: 0;
+        transform: scale(0.8) rotate(-5deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.titulo-final {
+    font-size: 2.5rem;
+    color: #d63384;
+    margin-bottom: 30px;
+    animation: latidoTitulo 1.5s ease-in-out infinite;
+}
+
+@keyframes latidoTitulo {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* ============== GATO ENAMORADO ============== */
+.gato-enamorado {
+    position: relative;
+    font-size: 120px;
+    display: inline-block;
+    margin: 30px 0;
+    line-height: 1;
+}
+
+.cara {
+    display: block;
+    animation: girarCara 3s ease-in-out infinite;
+}
+
+@keyframes girarCara {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+}
+
+.ojo {
+    position: absolute;
+    font-size: 35px;
+    animation: palpitarOjos 1s infinite ease-in-out;
+    filter: drop-shadow(0 0 10px rgba(255, 0, 100, 0.6));
+}
+
+.izquierdo {
+    top: 48%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+}
+
+.derecho {
+    top: 48%;
+    left: 65%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes palpitarOjos {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.3); }
+}
+
+/* ============== MENSAJE FINAL ============== */
+.mensaje-final {
+    margin-top: 30px;
+}
+
+.texto-especial {
+    font-size: 1.5rem;
+    color: #c2185b;
+    font-weight: bold;
+    margin-bottom: 20px;
+    animation: brillarTexto 2s ease-in-out infinite;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes brillarTexto {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+.promesa {
+    font-size: 1.2rem;
+    color: #5d4037;
+    line-height: 1.8;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.firma {
+    font-size: 1.1rem;
+    color: #d63384;
+    font-weight: bold;
+    margin-top: 20px;
+    font-style: italic;
+}
+
+/* ============== CORAZONES FLOTANTES EN PANEL ============== */
+.corazones-flotantes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.corazon-panel {
+    position: absolute;
+    animation: flotarPanel linear forwards;
+    opacity: 0.8;
+}
+
+@keyframes flotarPanel {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100%) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ============== CONFETI ============== */
+.confeti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.confeti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    animation: caerConfeti linear forwards;
+}
+
+@keyframes caerConfeti {
+    to {
+        transform: translateY(110%) rotate(720deg);
+    }
+}
+
+/* ============== RESPONSIVE ============== */
+@media (max-width: 768px) {
+    .container {
+        padding: 30px 20px;
+        max-width: 95%;
+    }
+    
+    .titulo-animado {
+        font-size: 1.6rem;
+    }
+    
+    .poema {
+        font-size: 1rem;
+    }
+    
+    .pregunta {
+        font-size: 1.5rem;
+    }
+    
+    .emoji {
+        font-size: 80px;
+    }
+    
+    button {
+        padding: 15px 40px;
+        font-size: 1.2rem;
+    }
+    
+    .botones {
+        gap: 15px;
+    }
+    
+    .panel-final {
+        padding: 40px 25px;
+    }
+    
+    .titulo-final {
+        font-size: 1.8rem;
+    }
+    
+    .gato-enamorado {
+        font-size: 90px;
+    }
+    
+    .ojo {
+        font-size: 28px;
+    }
+    
+    .texto-especial {
+        font-size: 1.2rem;
+    }
+    
+    .promesa {
+        font-size: 1rem;
+    }
+    
+    .firma {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 25px 15px;
+    }
+    
+    .titulo-animado {
+        font-size: 1.4rem;
+    }
+    
+    .poema {
+        font-size: 0.95rem;
+    }
+    
+    .pregunta {
+        font-size: 1.3rem;
+    }
+    
+    .emoji {
+        font-size: 70px;
+    }
+    
+    button {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+    }
+    
+    .titulo-final {
+        font-size: 1.5rem;
+    }
+    
+    .gato-enamorado {
+        font-size: 75px;
+    }
+    
+    .ojo {
+        font-size: 24px;
+    }
+}
+
+/* ============== UTILIDADES ============== */
+.oculto {
+    display: none;
+}

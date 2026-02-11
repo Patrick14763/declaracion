@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Ti 💚</title>
+<link rel="stylesheet" href="Estilos.css">
+</head>
+<body>
+
+<!-- Fondo de corazones flotantes -->
+<div class="fondo-corazones"></div>
+
+<!-- Fondo de lluvia (oculto inicialmente) -->
+<div class="fondo-lluvia oculto"></div>
+
+<!-- Contenedor principal -->
+<div class="container" id="principal">
+
+<div class="titulo-entrada">
+    <h1 class="titulo-animado">Para Alguien Muy Especial 💖</h1>
+</div>
+
+<div class="poema">
+<p class="verso">
+Si la luna supiera tu nombre,<br>
+brillaría celosa al mirarte,<br>
+porque incluso en la noche más triste<br>
+tu sonrisa podría salvarme.
+</p>
+
+<p class="verso">
+No hay estrella que tenga el fuego<br>
+que se enciende en tus ojos al verme,<br>
+ni poema que alcance la altura<br>
+del suspiro que nace al quererte.
+</p>
+
+<p class="verso">
+Eres alba rompiendo tinieblas,<br>
+eres calma después del dolor,<br>
+la respuesta que nunca encontraba<br>
+y el latido secreto en mi voz.
+</p>
+
+<p class="verso">
+Si el destino escribiera mi historia,<br>
+con tinta de sangre y pasión,<br>
+pondría tu nombre en cada página<br>
+como eterna y sagrada canción.
+</p>
+
+<p class="verso">
+Y si el mundo insistiera en separarnos,<br>
+como hizo a Verona temblar,<br>
+yo cruzaría tormentas y siglos<br>
+solo por volverte a encontrar.
+</p>
+
+<p class="verso">
+Porque amarte no es solo un deseo,<br>
+ni un impulso fugaz del querer;<br>
+es sentir que nací para hallarte,<br>
+y en tu abrazo volver a nacer.
+</p>
+
+<p class="verso">
+Si mis labios callaran un día,<br>
+que mis versos te sepan decir:<br>
+que en esta vida y en todas las otras,<br>
+yo te volvería a elegir.
+</p>
+</div>
+
+<div class="pregunta-container">
+    <div class="pregunta">
+        ¿Quieres ser mi pareja? 💚
+    </div>
+    
+    <div id="gatito" class="emoji">😺</div>
+</div>
+
+<div class="botones">
+    <button id="si" onclick="aceptar()">
+        <span class="texto-boton">SÍ</span>
+        <span class="brillo"></span>
+    </button>
+    <button id="no" onclick="rechazar()">
+        <span class="texto-boton">NO</span>
+    </button>
+</div>
+
+</div>
+
+<!-- Truenos (ocultos inicialmente) -->
+<div class="trueno oculto"></div>
+
+<script src="Javascript.js"></script>
+
+<script>
+let tamañoSi = 1;
+let clicksNo = 0;
+let lluviaActiva = false;
+
+function rechazar(){
+    clicksNo++;
+    tamañoSi += 0.25;
+
+    // Agrandar botón SÍ
+    document.getElementById("si").style.transform = "scale(" + tamañoSi + ")";
+
+    // Cambiar emoji a triste y hacer temblar
+    let gato = document.getElementById("gatito");
+    gato.innerHTML = "😿";
+    gato.classList.add("llorar");
+
+    // Activar lluvia en el primer click
+    if(clicksNo === 1 && !lluviaActiva){
+        activarLluvia();
+        lluviaActiva = true;
+    }
+
+    // Mostrar trueno
+    mostrarTrueno();
+
+    // Ocultar botón NO después de 5 clicks
+    if(clicksNo >= 5){
+        document.getElementById("no").style.opacity = "0";
+        document.getElementById("no").style.pointerEvents = "none";
+        
+        setTimeout(() => {
+            document.getElementById("no").style.display = "none";
+        }, 300);
+    }
+}
+
+function aceptar(){
+    const principal = document.getElementById("principal");
+    
+    // Ocultar lluvia si está activa
+    const fondoLluvia = document.querySelector(".fondo-lluvia");
+    if(fondoLluvia){
+        fondoLluvia.classList.add("oculto");
+    }
+    
+    // Activar animación de salida
+    principal.classList.add("salir");
+    
+    setTimeout(() => {
+        principal.innerHTML = `
+            <div class="panel-final aparecer">
+                <div class="confeti-container"></div>
+                
+                <h1 class="titulo-final">¡Sabía que aceptarías! 💖</h1>
+                
+                <div class="gato-enamorado">
+                    <span class="cara">😺</span>
+                    <span class="ojo izquierdo">❤️</span>
+                    <span class="ojo derecho">❤️</span>
+                </div>
+                
+                <div class="mensaje-final">
+                    <p class="texto-especial">
+                        ✨ No te vas a arrepentir de esta decisión ✨
+                    </p>
+                    <p class="promesa">
+                        Te prometo hacerte sonreír cada día,<br>
+                        cuidarte en las buenas y en las malas,<br>
+                        y amarte con todo mi corazón 💕
+                    </p>
+                    <p class="firma">
+                        Con todo mi amor, siempre 💝
+                    </p>
+                </div>
+                
+                <div class="corazones-flotantes"></div>
+            </div>
+        `;
+        
+        // Remover la clase de salida
+        principal.classList.remove("salir");
+        
+        // Pequeño delay para asegurar que el DOM esté actualizado
+        setTimeout(() => {
+            // Generar corazones flotantes en el panel final
+            generarCorazonesPanel();
+            generarConfeti();
+        }, 100);
+        
+    }, 500);
+}
+
+window.onload = function(){
+    generarCorazonesFondo();
+    animarVersos();
+}
+</script>
+
+</body>
+</html>
